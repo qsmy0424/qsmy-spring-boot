@@ -1,0 +1,6 @@
+server:
+  port: 8083
+ws:
+  server:
+    port: 18083
+    host: localhost
