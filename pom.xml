@@ -19,6 +19,7 @@
         <module>qsmy-redis</module>
         <module>qsmy-websocket</module>
         <module>qsmy-netty-socketio</module>
+        <module>qsmy-async</module>
     </modules>
 
     <properties>
