@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${host}
+        namespace: ${namespace}
+      server-addr: ${host}
+      config:
+        file-extension: yaml
+        namespace: dd63409a-0f0f-45b0-8104-1ec5c1560606
+  application:
+    name: service-nacos
+server:
+  port: 18084
