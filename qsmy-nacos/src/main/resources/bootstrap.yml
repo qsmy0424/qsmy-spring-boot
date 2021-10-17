@@ -1,14 +1,19 @@
+server:
+  port: 18084
 spring:
+  application:
+    name: service-nacos
   cloud:
     nacos:
+      server-addr: ${host}
       discovery:
         server-addr: ${host}
         namespace: ${namespace}
-      server-addr: ${host}
+        group: test
       config:
+        group: test
         file-extension: yaml
-        namespace: dd63409a-0f0f-45b0-8104-1ec5c1560606
-  application:
-    name: service-nacos
-server:
-  port: 18084
+        namespace: ${namespace}
+        extension-configs:
+                 - data-id: test.yml
+                   group: test

@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
     <artifactId>qsmy-async</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>qsmy-async</name>
     <description>qsmy-async</description>
     <properties>
