@@ -1,4 +1,20 @@
 spring:
+  application:
+    name: service-reis
+  cloud:
+    nacos:
+      server-addr: ${host}
+      discovery:
+        server-addr: ${host}
+        namespace: ${namespace}
+        group: test
+      config:
+        group: test
+        file-extension: yaml
+        namespace: ${namespace}
+        extension-configs:
+          - data-id: test.yml
+            group: test
   redis:
     host: localhost
     # 连接超时时间（记得添加单位，Duration）

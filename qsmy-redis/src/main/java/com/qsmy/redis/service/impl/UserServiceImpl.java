@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         MAP.put(3L, new User(3L, "user3"));
     }
 
-    @CachePut(value = "user", key = "#user.id")
+    @CachePut(value = "user", key = "#user.id + ':' + #user.name")
     @Override
     public User saveOrUpdate(User user) {
         MAP.put(user.getId(), user);

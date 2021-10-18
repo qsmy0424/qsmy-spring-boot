@@ -17,6 +17,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.io.Serializable;
 import java.time.Duration;
+import java.util.Optional;
 
 /**
  * <p>
@@ -45,16 +46,24 @@ public class RedisConfig {
      */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
-        // 配置序列化
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        RedisCacheConfiguration redisCacheConfiguration = config
+        return RedisCacheManager
+                .builder(factory)
+                .cacheDefaults(getCacheConfigurationWithTtl(null))
+                .withCacheConfiguration("", getCacheConfigurationWithTtl(30))
+                .build();
+    }
+
+    private RedisCacheConfiguration getCacheConfigurationWithTtl(Integer seconds) {
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
+                // 配置序列化
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 // 不缓存null
                 .disableCachingNullValues()
-                // 缓存数据保存30分钟
-                .entryTtl(Duration.ofMinutes(30));
-
-        return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
+                //
+                .computePrefixWith(name -> name + ":");
+        // 缓存数据保存时间
+        Optional.ofNullable(seconds).ifPresent(time -> configuration.entryTtl(Duration.ofSeconds(time)));
+        return configuration;
     }
 }

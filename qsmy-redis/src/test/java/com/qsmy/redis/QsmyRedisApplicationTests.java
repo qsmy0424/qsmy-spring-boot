@@ -48,7 +48,7 @@ class QsmyRedisApplicationTests {
      */
     @Test
     void test2() {
-        userService.saveOrUpdate(new User(4L, "测试中文"));
+        System.out.println(userService.saveOrUpdate(new User(4L, "测试中文")));
         User user = userService.get(4L);
     }
 
