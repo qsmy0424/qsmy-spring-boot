@@ -1,6 +1,6 @@
 package com.qsmy.kafka.handler;
 
-import com.qsmy.kafka.constants.KafkaConsts;
+import com.qsmy.kafka.constants.KafkaConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MessageHandler {
 
-    @KafkaListeners({@KafkaListener(topics = KafkaConsts.TOPIC_TEST, containerFactory = "ackContainerFactory"),
-            @KafkaListener(topics = KafkaConsts.TOPIC_QSMY, containerFactory = "ackContainerFactory")})
+    @KafkaListeners({@KafkaListener(topics = KafkaConstants.TOPIC_TEST, containerFactory = "ackContainerFactory"),
+            @KafkaListener(topics = KafkaConstants.TOPIC_QSMY, containerFactory = "ackContainerFactory")})
     public void handleMessage(ConsumerRecord<?, ?> consumerRecord, Acknowledgment acknowledgment) {
         try {
             String message = (String) consumerRecord.value();

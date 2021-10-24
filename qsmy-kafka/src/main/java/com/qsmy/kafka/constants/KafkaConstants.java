@@ -7,7 +7,7 @@ package com.qsmy.kafka.constants;
  *
  * @author qsmy
  */
-public interface KafkaConsts {
+public interface KafkaConstants {
     /**
      * 默认分区大小
      */

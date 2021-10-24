@@ -1,6 +1,6 @@
 package com.qsmy.kafka.config;
 
-import com.qsmy.kafka.constants.KafkaConsts;
+import com.qsmy.kafka.constants.KafkaConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -39,7 +39,7 @@ public class KafkaConfig {
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        factory.setConcurrency(KafkaConsts.DEFAULT_PARTITION_NUM);
+        factory.setConcurrency(KafkaConstants.DEFAULT_PARTITION_NUM);
         factory.setBatchListener(true);
         factory.getContainerProperties().setPollTimeout(3000);
         return factory;
@@ -55,7 +55,7 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
-        factory.setConcurrency(KafkaConsts.DEFAULT_PARTITION_NUM);
+        factory.setConcurrency(KafkaConstants.DEFAULT_PARTITION_NUM);
         return factory;
     }
 
