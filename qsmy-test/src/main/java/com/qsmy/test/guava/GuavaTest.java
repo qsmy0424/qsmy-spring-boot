@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class GuavaTest {
 
     public static void main(String[] args) {
-        List<Integer> list = Lists.newArrayList();
+
         List<Integer> list1 = Lists.newArrayList(1, 2, 3);
         System.out.println(list1);
         // 反转list

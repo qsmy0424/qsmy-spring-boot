@@ -5,15 +5,24 @@ spring:
     name: service-nacos
   cloud:
     nacos:
-      server-addr: ${host}
       discovery:
+        # 开启nacos作为服务注册与发现，如果不想使用，则设置为false
+        enabled: true
         server-addr: ${host}
         namespace: ${namespace}
         group: test
+        # 为服务实例注册的ip地址
+#        ip: 192.168.31.165
+        # 权重
+        weight: 2
+        metadata:
+          instance: abc
+          version: 1.0
       config:
+        server-addr: ${host}
         group: test
         file-extension: yaml
         namespace: ${namespace}
         extension-configs:
-                 - data-id: test.yml
+                 - data-id: nacos1.yml
                    group: test
