@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest
 class QsmyNacosApplicationTests {
 
-    @Value("${test}")
+    @Value("${test.qsmy3}")
     private String name;
 
     @Autowired

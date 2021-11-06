@@ -7,8 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
@@ -28,7 +32,10 @@ class QsmyRedisApplicationTests {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private RedisTemplate<String, Serializable> redisCacheTemplate;
+    private RedisTemplate<String, Serializable> redisTemplate;
+
+    @Autowired
+    private DefaultRedisScript<Long> defaultRedisScript;
 
     @Test
     void contextLoads() {
@@ -78,10 +85,20 @@ class QsmyRedisApplicationTests {
 
         // 以下演示整合，具体Redis命令可以参考官方文档
         String key = "xkcoding:user:1";
-        redisCacheTemplate.opsForValue().set(key, new User(1L, "user1"));
+        redisTemplate.opsForValue().set(key, new User(1L, "user1"));
         // 对应 String（字符串）
-        User user = (User) redisCacheTemplate.opsForValue().get(key);
+        User user = (User) redisTemplate.opsForValue().get(key);
         log.info("【user】= {}", user);
+    }
+
+    @Test
+    void testLua() {
+        redisTemplate.execute(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                return null;
+            }
+        });
     }
 
 }

@@ -9,12 +9,10 @@ spring:
         namespace: ${namespace}
         group: test
       config:
+        server-addr: ${host}
         group: test
-        file-extension: yaml
+        file-extension: yml
         namespace: ${namespace}
-        extension-configs:
-          - data-id: test.yml
-            group: test
   redis:
     host: localhost
     # 连接超时时间（记得添加单位，Duration）

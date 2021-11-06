@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: service-test
+qsmy:
+  server:
+    port: 4444

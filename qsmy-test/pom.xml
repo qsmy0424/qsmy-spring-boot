@@ -8,13 +8,18 @@
         <version>1.0</version>
     </parent>
     <artifactId>qsmy-test</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>qsmy-test</name>
     <description>qsmy-test</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.qsmy</groupId>
+            <artifactId>qsmy-spring-boot-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

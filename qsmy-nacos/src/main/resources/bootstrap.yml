@@ -21,8 +21,12 @@ spring:
       config:
         server-addr: ${host}
         group: test
-        file-extension: yaml
+        file-extension: yml
         namespace: ${namespace}
         extension-configs:
-                 - data-id: nacos1.yml
+                 - data-id: test.yml
                    group: test
+                   refresh: true
+                 - data-id: test1.yml
+                   group: test
+                   refresh: true
