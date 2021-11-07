@@ -6,6 +6,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
+import java.util.List;
+
 /**
  * @author qsmy
  */
@@ -13,9 +15,9 @@ import org.springframework.scripting.support.ResourceScriptSource;
 public class LuaConfig {
 
     @Bean
-    public DefaultRedisScript<Long> defaultRedisScript() {
-        DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
-        redisScript.setResultType(Long.class);
+    public DefaultRedisScript<List> defaultRedisScript() {
+        DefaultRedisScript<List> redisScript = new DefaultRedisScript<>();
+        redisScript.setResultType(List.class);
         redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/test.lua")));
         return redisScript;
     }

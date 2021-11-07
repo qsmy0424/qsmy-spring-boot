@@ -2,6 +2,7 @@ package com.qsmy.redis;
 
 import com.qsmy.redis.entity.User;
 import com.qsmy.redis.service.UserService;
+import com.qsmy.redis.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.ReturnType;
+import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -16,6 +19,9 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -35,7 +41,10 @@ class QsmyRedisApplicationTests {
     private RedisTemplate<String, Serializable> redisTemplate;
 
     @Autowired
-    private DefaultRedisScript<Long> defaultRedisScript;
+    private DefaultRedisScript<List> defaultRedisScript;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Test
     void contextLoads() {
@@ -93,12 +102,35 @@ class QsmyRedisApplicationTests {
 
     @Test
     void testLua() {
-        redisTemplate.execute(new RedisCallback<Object>() {
+
+        String lua = "return redis.call('smembers', KEYS[1])";
+
+        List execute = redisUtils.getTemplate(4).execute(new RedisCallback<List>() {
             @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                return null;
+            public List doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.eval(
+                        lua.getBytes(StandardCharsets.UTF_8),
+                        ReturnType.MULTI,
+                        1,
+                        "RTDBSET".getBytes(StandardCharsets.UTF_8)
+                );
             }
+
         });
+
+        System.out.println(execute);
+
+        // DefaultRedisScript<List> objectDefaultRedisScript = new DefaultRedisScript<>();
+        // objectDefaultRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/huanya.lua")));
+        // objectDefaultRedisScript.setResultType(List.class);
+        // List rtdbset = redisUtils.getTemplate(4).execute(objectDefaultRedisScript, Collections.singletonList("RTDBSET"));
+        // System.out.println(rtdbset);
+    }
+
+    @Test
+    void testSelectRedis() {
+        Set<String> rtdbset = redisUtils.getTemplate(4).opsForSet().members("RTDBSET");
+        System.out.println(rtdbset);
     }
 
 }

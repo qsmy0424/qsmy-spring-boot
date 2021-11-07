@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   application:
     name: service-reis
@@ -13,6 +15,11 @@ spring:
         group: test
         file-extension: yml
         namespace: ${namespace}
+        extension-configs:
+          extension-configs:
+            - data-id: redis.yml
+              group: test
+
   redis:
     host: localhost
     # 连接超时时间（记得添加单位，Duration）
@@ -37,5 +44,3 @@ spring:
 logging:
   level:
     com.xkcoding: debug
-server:
-  port: 8081
