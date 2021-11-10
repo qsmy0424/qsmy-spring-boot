@@ -23,6 +23,7 @@
         <module>qsmy-hutool</module>
         <module>qsmy-nacos</module>
         <module>qsmy-test</module>
+        <module>qsmy-event</module>
     </modules>
 
     <properties>
@@ -32,8 +33,9 @@
         <hutool.version>5.4.5</hutool.version>
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
-        <resource.delimiter>${}</resource.delimiter>
         <lang3.version>3.12.0</lang3.version>
+        <okhttp.version>4.9.2</okhttp.version>
+        <resource.delimiter>${}</resource.delimiter>
         <!--<resource.delimiter>@</resource.delimiter>-->
     </properties>
 

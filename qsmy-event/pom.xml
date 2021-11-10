@@ -7,24 +7,16 @@
         <artifactId>qsmy-spring-boot</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>qsmy-test</artifactId>
+    <artifactId>qsmy-event</artifactId>
     <version>1.0</version>
-    <name>qsmy-test</name>
-    <description>qsmy-test</description>
+    <name>qsmy-event</name>
+    <packaging>pom</packaging>
+
+    <description>qsmy-event</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.qsmy</groupId>
-            <artifactId>qsmy-spring-boot-starter</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -35,5 +27,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
