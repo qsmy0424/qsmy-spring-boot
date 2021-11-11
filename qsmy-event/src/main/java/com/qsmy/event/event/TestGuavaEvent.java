@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author qsmy
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestEnent1 {
+public class TestGuavaEvent {
 
     private String name;
 }
