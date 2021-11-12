@@ -24,6 +24,8 @@
         <module>qsmy-nacos</module>
         <module>qsmy-test</module>
         <module>qsmy-event</module>
+        <module>qsmy-annotation</module>
+        <module>qsmy-task</module>
     </modules>
 
     <properties>

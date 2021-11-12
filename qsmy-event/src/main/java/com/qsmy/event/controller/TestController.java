@@ -1,9 +1,8 @@
 package com.qsmy.event.controller;
 
-import com.google.common.eventbus.EventBus;
 import com.qsmy.event.config.EventBusConfig;
 import com.qsmy.event.event.TestEvent;
-import com.qsmy.event.listeners.GuavaListener;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,22 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    public static final EventBus EVENTBUS;
-
-    static {
-        EVENTBUS = EventBusConfig.getAsyncEventBus();
-        EVENTBUS.register(new GuavaListener());
-    }
+    private final ApplicationContext applicationContext;
 
     @GetMapping("/test")
     public void test() {
         applicationContext.publishEvent(new TestEvent(this, "qsmy"));
-        EVENTBUS.post(123);
-        EVENTBUS.post("123456");
+        EventBusConfig.geEventBus().post("123456");
+        EventBusConfig.getAsyncEventBus().post(123);
+        EventBusConfig.getAsyncEventBus().post("123456");
     }
 }

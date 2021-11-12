@@ -3,6 +3,7 @@ package com.qsmy.event.config;
 import cn.hutool.core.thread.NamedThreadFactory;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
+import com.qsmy.event.listeners.GuavaListener;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -15,6 +16,16 @@ import java.util.concurrent.TimeUnit;
 public class EventBusConfig {
 
     private EventBusConfig() {
+    }
+
+    private static final EventBus EVENT_BUS;
+    private static final EventBus ASYNC_EVENT_BUS;
+
+    static {
+        EVENT_BUS = EventInstanceHolder.EVENT_BUS;
+        ASYNC_EVENT_BUS = AsyncEventInstanceHolder.EVENT_BUS;
+        EVENT_BUS.register(new GuavaListener());
+        ASYNC_EVENT_BUS.register(new GuavaListener());
     }
 
     private static class EventInstanceHolder {
@@ -34,10 +45,10 @@ public class EventBusConfig {
     }
 
     public static EventBus geEventBus() {
-        return EventInstanceHolder.EVENT_BUS;
+        return EVENT_BUS;
     }
 
     public static EventBus getAsyncEventBus() {
-        return AsyncEventInstanceHolder.EVENT_BUS;
+        return ASYNC_EVENT_BUS;
     }
 }
