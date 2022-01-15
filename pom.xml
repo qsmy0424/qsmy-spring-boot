@@ -26,6 +26,11 @@
         <module>qsmy-event</module>
         <module>qsmy-annotation</module>
         <module>qsmy-task</module>
+        <module>qsmy-magic</module>
+        <module>qsmy-logback</module>
+        <module>qsmy-netty</module>
+        <module>qsmy-mqtt</module>
+        <module>qsmy-sentinel</module>
     </modules>
 
     <properties>
@@ -34,9 +39,13 @@
         <guava.version>31.0.1-jre</guava.version>
         <hutool.version>5.4.5</hutool.version>
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+        <!--<spring.cloud.version>2021.0.0</spring.cloud.version>-->
         <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
         <lang3.version>3.12.0</lang3.version>
         <okhttp.version>4.9.2</okhttp.version>
+        <magic.version>1.6.4</magic.version>
+        <swagger.version>2.9.2</swagger.version>
+        <druid.version>1.2.1</druid.version>
         <resource.delimiter>${}</resource.delimiter>
         <!--<resource.delimiter>@</resource.delimiter>-->
     </properties>
@@ -99,6 +108,13 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring.cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -118,7 +134,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>${lang3.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

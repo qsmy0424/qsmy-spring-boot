@@ -18,7 +18,8 @@ public class LuaConfig {
     public DefaultRedisScript<List> defaultRedisScript() {
         DefaultRedisScript<List> redisScript = new DefaultRedisScript<>();
         redisScript.setResultType(List.class);
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/test.lua")));
+        // redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/test.lua")));
+        redisScript.setLocation(new ClassPathResource("scripts/test.lua"));
         return redisScript;
     }
 }

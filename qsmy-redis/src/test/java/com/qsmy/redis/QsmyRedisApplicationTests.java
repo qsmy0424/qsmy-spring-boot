@@ -2,6 +2,7 @@ package com.qsmy.redis;
 
 import com.qsmy.redis.entity.User;
 import com.qsmy.redis.service.UserService;
+import com.qsmy.redis.service.impl.RedisChannelSub;
 import com.qsmy.redis.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,9 @@ class QsmyRedisApplicationTests {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private RedisChannelSub redisChannelSub;
 
     @Test
     void contextLoads() {
@@ -131,6 +135,15 @@ class QsmyRedisApplicationTests {
     void testSelectRedis() {
         Set<String> rtdbset = redisUtils.getTemplate(4).opsForSet().members("RTDBSET");
         System.out.println(rtdbset);
+    }
+
+    @Test
+    void testPublish() {
+        redisTemplate.convertAndSend("channel", "456");
+    }
+
+    @Test
+    void testSubscribe() {
     }
 
 }
