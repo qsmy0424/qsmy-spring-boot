@@ -7,18 +7,23 @@
         <artifactId>qsmy-spring-boot</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>qsmy-redission</artifactId>
+    <artifactId>qsmy-elasticsearch</artifactId>
     <version>1.0</version>
-    <name>qsmy-redission</name>
-    <description>qsmy-redission</description>
+    <name>qsmy-elasticsearch</name>
+    <description>qsmy-elasticsearch</description>
     <properties>
         <java.version>1.8</java.version>
+        <elasticsearch.version>7.8.0</elasticsearch.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.16.8</version>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>${elasticsearch.version}</version>
         </dependency>
     </dependencies>
 

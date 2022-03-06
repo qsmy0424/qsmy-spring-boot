@@ -31,6 +31,7 @@
         <module>qsmy-netty</module>
         <module>qsmy-mqtt</module>
         <module>qsmy-sentinel</module>
+        <module>qsmy-email</module>
     </modules>
 
     <properties>
@@ -46,6 +47,7 @@
         <magic.version>1.6.4</magic.version>
         <swagger.version>2.9.2</swagger.version>
         <druid.version>1.2.1</druid.version>
+        <sprint.boot>2.3.12.RELEASE</sprint.boot>
         <resource.delimiter>${}</resource.delimiter>
         <!--<resource.delimiter>@</resource.delimiter>-->
     </properties>
@@ -163,7 +165,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.12.RELEASE</version>
+                <version>${sprint.boot}</version>
                 <configuration>
                     <excludes>
                         <exclude>

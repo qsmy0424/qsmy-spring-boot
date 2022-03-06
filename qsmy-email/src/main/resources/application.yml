@@ -1,0 +1,11 @@
+spring:
+  mail:
+    host: smtp.163.com
+    username: qsmy0424@163.com
+    password: APTX4869
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.ssl.enable: true
+      mail.display.sendmail: QSMY-spring-boot

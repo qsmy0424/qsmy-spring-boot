@@ -1,0 +1,8 @@
+spring:
+  redis:
+    host: localhost
+    timeout: 10000ms
+    password: qsmy
+    port: 16379
+server:
+  port: 8090
