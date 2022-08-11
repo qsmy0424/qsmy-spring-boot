@@ -1,0 +1,6 @@
+curator:
+  retryCount: 5
+  elapsedTimeMs: 500
+  connectString: 127.0.0.1
+  sessionTimeoutMs: 60000
+  connectionTimeoutMs: 5000
