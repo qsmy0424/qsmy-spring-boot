@@ -33,6 +33,7 @@
         <module>qsmy-sentinel</module>
         <module>qsmy-email</module>
         <module>qsmy-zookeeper</module>
+        <module>qsmy-mybatis</module>
     </modules>
 
     <properties>
@@ -48,8 +49,9 @@
         <magic.version>1.6.4</magic.version>
         <swagger.version>2.9.2</swagger.version>
         <druid.version>1.2.1</druid.version>
-        <sprint.boot>2.3.12.RELEASE</sprint.boot>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <curator.version>4.1.0</curator.version>
+        <mybatis.version>2.2.2</mybatis.version>
         <resource.delimiter>${}</resource.delimiter>
         <!--<resource.delimiter>@</resource.delimiter>-->
     </properties>
@@ -88,6 +90,11 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -109,14 +116,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>${spring.cloud.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -167,7 +166,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${sprint.boot}</version>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>

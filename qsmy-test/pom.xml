@@ -52,8 +52,12 @@
             <artifactId>jna</artifactId>
             <version>5.6.0</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,7 +65,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${sprint.boot}</version>
             </plugin>
         </plugins>
     </build>
