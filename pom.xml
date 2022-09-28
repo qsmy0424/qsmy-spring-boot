@@ -34,6 +34,7 @@
         <module>qsmy-email</module>
         <module>qsmy-zookeeper</module>
         <module>qsmy-mybatis</module>
+        <module>qsmy-rocketmq</module>
     </modules>
 
     <properties>
@@ -52,6 +53,7 @@
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <curator.version>4.1.0</curator.version>
         <mybatis.version>2.2.2</mybatis.version>
+        <rocketmq.version>2.2.2</rocketmq.version>
         <resource.delimiter>${}</resource.delimiter>
         <!--<resource.delimiter>@</resource.delimiter>-->
     </properties>
