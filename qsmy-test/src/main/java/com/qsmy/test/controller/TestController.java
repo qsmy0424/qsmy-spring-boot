@@ -2,6 +2,7 @@ package com.qsmy.test.controller;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,18 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @GetMapping("/test")
-    public Object test() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.set("name", "111");
-        jsonObject.set("2", "222");
+    @Autowired
+    private TestComponent testComponent;
 
-        JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.set("name", "111");
-        jsonObject1.set("2", "222");
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.add(jsonObject);
-        jsonArray.add(jsonObject1);
-        return jsonArray;
+    @GetMapping("/test")
+    public void test() {
+        testComponent.test();
     }
 }

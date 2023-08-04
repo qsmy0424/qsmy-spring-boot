@@ -35,13 +35,14 @@
         <module>qsmy-zookeeper</module>
         <module>qsmy-mybatis</module>
         <module>qsmy-rocketmq</module>
+        <module>qsmy-agent</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <nacos.version>2.2.6.RELEASE</nacos.version>
         <guava.version>31.0.1-jre</guava.version>
-        <hutool.version>5.4.5</hutool.version>
+        <hutool.version>5.8.20</hutool.version>
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
         <!--<spring.cloud.version>2021.0.0</spring.cloud.version>-->
         <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
@@ -50,6 +51,7 @@
         <magic.version>1.6.4</magic.version>
         <swagger.version>2.9.2</swagger.version>
         <druid.version>1.2.1</druid.version>
+        <jackson.version>2.14.2</jackson.version>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <curator.version>4.1.0</curator.version>
         <mybatis.version>2.2.2</mybatis.version>
@@ -174,6 +176,10 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
                         </exclude>
                     </excludes>
                 </configuration>
