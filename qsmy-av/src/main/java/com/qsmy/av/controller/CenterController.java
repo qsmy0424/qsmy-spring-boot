@@ -37,7 +37,7 @@ public class CenterController {
         List<String> type = new ArrayList<>();
 
         if (StringUtils.isNotBlank(info.getType()) && !"類別:".equals(info.getType())) {
-            String[] split = info.getType().split("\\s+");
+            String[] split = info.getType().replace(" ", "").replace("多選提交", "").split("\\s+");
             type.addAll(Arrays.asList(split));
             type.remove("");
         }
