@@ -35,7 +35,6 @@
         <module>qsmy-zookeeper</module>
         <module>qsmy-mybatis</module>
         <module>qsmy-rocketmq</module>
-        <module>qsmy-agent</module>
     </modules>
 
     <properties>
