@@ -7,14 +7,12 @@ import cn.hutool.json.JSONUtil;
 import com.qsmy.av.entity.Info;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author wwhm
@@ -70,6 +68,11 @@ public class CenterController {
                 JSONUtil.toJsonStr(type),
                 info.getDuration(),
                 score);
+    }
+
+    @GetMapping("/get")
+    public Object get(String fileName) {
+        return jdbcTemplate.queryForList("select * from t_file where name like ?", "%" + fileName.toUpperCase() + "%");
     }
 
     private void write(String title) {
