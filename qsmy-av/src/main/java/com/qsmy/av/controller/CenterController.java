@@ -1,10 +1,14 @@
 package com.qsmy.av.controller;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.qsmy.av.entity.Info;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,7 +79,37 @@ public class CenterController {
         return jdbcTemplate.queryForList("select * from t_file where name like ?", "%" + fileName.toUpperCase() + "%");
     }
 
+    @PostMapping("/save1")
+    public void save1(@RequestBody List<Map<String, Object>> mapList) {
+        ExcelWriter writer = ExcelUtil.getWriter("/Users/qsmy/Documents/excel.xlsx", "javdb");
+        writer.setCurrentRowToEnd();
+        writer.write(mapList);
+        writer.flush();
+        writer.close();
+    }
+
+    @PostMapping("/saveVideo")
+    public void saveVideo(@RequestBody Map<String, String> map) {
+        ExcelWriter writer = ExcelUtil.getWriter("/Users/qsmy/Documents/excel.xlsx", "video");
+        writer.setCurrentRowToEnd();
+        // Map<String, Object> map = new HashMap<>();
+        // map.put("code", name);
+        // map.put("url", url);
+        String url = map.get("url");
+        if (StringUtils.isNotBlank(url)) {
+            if (url.startsWith("//")) {
+                url = "https:" + url;
+            }
+            map.put("url", url);
+        }
+        map.put("name", FileNameUtil.getName(map.get("url")));
+        writer.write(List.of(map));
+        writer.flush();
+        writer.close();
+    }
+
     private void write(String title) {
-        FileUtil.appendUtf8Lines(Collections.singletonList(title), "/Users/wwhm/Downloads/123.txt");
+        // FileUtil.appendUtf8Lines(Collections.singletonList(title), "/Users/wwhm/Downloads/123.txt");
+
     }
 }
