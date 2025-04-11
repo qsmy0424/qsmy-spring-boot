@@ -1,63 +1,69 @@
 package com.qsmy.av.controller;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.qsmy.av.entity.Info;
-import org.apache.commons.io.FilenameUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author wwhm
  * @time 2023/8/4
  */
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 public class CenterController {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CenterController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    @PostMapping("/save")
+    @PostMapping("save")
     public Object save(@RequestBody Info info) {
-        System.out.println(info);
+        log.info("info: {}", info);
+
         long id = IdUtil.getSnowflakeNextId();
 
-        List<String> type = new ArrayList<>();
-
-        if (StringUtils.isNotBlank(info.getType()) && !"類別:".equals(info.getType())) {
-            String[] split = info.getType().replace(" ", "").replace("多選提交", "").split("\\s+");
-            type.addAll(Arrays.asList(split));
-            type.remove("");
+        List<String> typeList = new ArrayList<>();
+        String type = info.getType();
+        if (StringUtils.isNotBlank(type) && !"類別:".equals(type)) {
+            type = type.replace("\u00A0", "").replace("多選提交", "");
+            String[] typeArr = type.split("\\s+");
+            typeList.addAll(List.of(typeArr));
+            typeList.removeIf(StringUtils::isBlank);
         }
 
-        String author = "";
-        if (StringUtils.isNotBlank(info.getAuthor())) {
-            info.setAuthor(info.getAuthor().replace(" ", "").replace("♀", ""));
-            String[] split = info.getAuthor().trim().split("\\s+");
-            List<String> authorList = new ArrayList<>(Arrays.asList(split));
-            authorList.removeIf(s -> s.endsWith("♂"));
-            author = CharSequenceUtil.join(",", authorList);
+        String author = info.getAuthor();
+        if (StringUtils.isNotBlank(author)) {
+            author = author.replace("\u00A0", "").replace("♀", "");
+            String[] authorArr = author.trim().split("\\s+");
+            List<String> authorList = new ArrayList<>();
+            for (String s : authorArr) {
+                if (StringUtils.isNotBlank(s) && !s.endsWith("♂")) {
+                    authorList.add(s);
+                }
+            }
+            author = String.join(",", authorList);
         }
 
         String score = info.getScore();
         //  4.34分, 由268人評價
-        if (StringUtils.isNotBlank(score)) {
-            score = score.replace(" ", "").replace("分", "");
-            score = score.substring(0, score.indexOf(","));
+        if (StringUtils.isNotBlank(score) && score.contains("分")) {
+            score = score.replace("\u00A0", " ");
+            score = score.substring(0, score.indexOf("分"));
         }
 
         String sql = "insert into t_data (id, code, title, author, release_date, type, duration, score) " +
@@ -65,22 +71,24 @@ public class CenterController {
         return jdbcTemplate.update(
                 sql,
                 id,
-                info.getCode(),
+                info.getCode().toUpperCase(),
                 info.getTitle(),
                 author,
                 info.getReleaseDate(),
-                JSONUtil.toJsonStr(type),
+                JSONUtil.toJsonStr(typeList),
                 info.getDuration(),
                 score);
     }
 
-    @GetMapping("/get")
+    @GetMapping("get")
     public Object get(String fileName) {
         return jdbcTemplate.queryForList("select * from t_file where name like ?", "%" + fileName.toUpperCase() + "%");
     }
 
-    @PostMapping("/save1")
+    @PostMapping("save1")
     public void save1(@RequestBody List<Map<String, Object>> mapList) {
+        ZipSecureFile.setMinInflateRatio(0);
+
         ExcelWriter writer = ExcelUtil.getWriter("/Users/qsmy/Documents/excel.xlsx", "javdb");
         writer.setCurrentRowToEnd();
         writer.write(mapList);
@@ -88,8 +96,9 @@ public class CenterController {
         writer.close();
     }
 
-    @PostMapping("/saveVideo")
+    @PostMapping("saveVideo")
     public void saveVideo(@RequestBody Map<String, String> map) {
+        ZipSecureFile.setMinInflateRatio(0);
         ExcelWriter writer = ExcelUtil.getWriter("/Users/qsmy/Documents/excel.xlsx", "video");
         writer.setCurrentRowToEnd();
         // Map<String, Object> map = new HashMap<>();
